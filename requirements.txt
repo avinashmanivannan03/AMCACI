@@ -1,0 +1,39 @@
+# Core
+ffmpeg-python==0.2.0
+openai-whisper
+deepmultilingualpunctuation==1.0.1
+noisereduce==3.0.2
+silero-vad
+torchaudio==2.2.0
+torch==2.2.0
+
+# Embeddings and clustering
+sentence-transformers==2.7.0
+hdbscan==0.8.33
+scikit-learn==1.4.2
+umap-learn==0.5.6
+
+# NLP / models
+transformers==4.40.0
+gensim==4.3.2
+rouge-score==0.1.2
+
+# Agents / LLM
+langchain
+langchain-groq
+langchain-core
+groq
+
+# TTS
+TTS
+
+# Config / utils
+python-dotenv
+pydantic
+
+# Frontend
+streamlit
+plotly
+
+# Logging
+colorlog

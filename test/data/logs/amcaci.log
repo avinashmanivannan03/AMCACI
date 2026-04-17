@@ -1,0 +1,32 @@
+2026-02-27 01:42:46 | INFO     | test_connections | Testing Groq LLM connection
+2026-02-27 01:42:54 | ERROR    | test_connections | Groq connection FAILED: No module named 'langchain.schema'
+2026-02-27 01:42:54 | INFO     | test_connections | Testing Groq streaming response
+2026-02-27 01:42:57 | ERROR    | test_connections | Groq streaming FAILED: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+2026-02-27 01:42:57 | INFO     | test_connections | Testing Whisper model load
+2026-02-27 01:46:07 | INFO     | test_connections | Testing Groq LLM connection
+2026-02-27 01:46:17 | ERROR    | test_connections | Groq connection FAILED: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+2026-02-27 01:46:17 | INFO     | test_connections | Testing Groq streaming response
+2026-02-27 01:46:17 | ERROR    | test_connections | Groq streaming FAILED: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+2026-02-27 01:46:17 | INFO     | test_connections | Testing Whisper model load
+2026-02-27 01:47:47 | INFO     | test_connections | Testing Groq LLM connection
+2026-02-27 01:47:55 | ERROR    | test_connections | Groq connection FAILED: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+2026-02-27 01:47:55 | INFO     | test_connections | Testing Groq streaming response
+2026-02-27 01:47:55 | ERROR    | test_connections | Groq streaming FAILED: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+2026-02-27 01:47:55 | INFO     | test_connections | Testing Whisper model load
+2026-02-27 01:49:44 | INFO     | test_connections | Testing Groq LLM connection
+2026-02-27 01:49:52 | INFO     | test_connections | Groq response: CONNECTED
+2026-02-27 01:49:52 | INFO     | test_connections | Groq connection: PASSED
+2026-02-27 01:49:52 | INFO     | test_connections | Testing Groq streaming response
+2026-02-27 01:49:52 | INFO     | test_connections | Streamed response: 1
+2
+3
+4
+5
+2026-02-27 01:49:52 | INFO     | test_connections | Groq streaming: PASSED
+2026-02-27 01:49:52 | INFO     | test_connections | Testing Whisper model load
+2026-02-27 01:54:28 | INFO     | test_connections | Whisper model load: PASSED
+2026-02-27 01:54:28 | INFO     | test_connections | Testing SBERT model load
+2026-02-27 01:55:11 | INFO     | test_connections | SBERT load and encode: PASSED
+2026-02-27 01:55:11 | INFO     | test_connections | Testing zero-shot classifier load
+2026-02-27 01:57:39 | INFO     | test_connections | Zero-shot top label: Sports
+2026-02-27 01:57:39 | INFO     | test_connections | Zero-shot classifier: PASSED
