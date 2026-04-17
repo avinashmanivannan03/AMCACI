@@ -1,57 +1,56 @@
-<<<<<<< HEAD
-AMCACI - Autonomous Multi-modal Content Analysis and Clustering Intelligence
+# AMCACI - Autonomous Multi-modal Content Analysis and Clustering Intelligence
 
-Overview
+## Overview
 
 AMCACI is an advanced autonomous content analysis system that transforms news broadcast videos into structured, multi-modal outputs through intelligent processing. The system leverages cutting-edge AI technologies including large language models, speech processing, computer vision, and clustering algorithms to automatically extract, analyze, categorize, and summarize video content without human intervention.
 
 Built as a comprehensive solution for news content analysis, AMCACI bridges the gap between raw video input and actionable insights by orchestrating a sophisticated 8-stage pipeline that includes autonomous quality optimization through AI agents, multi-depth summarization, and comprehensive visual and audio output generation.
 
-Core Concept
+## Core Concept
 
 The application provides a complete end-to-end news video analysis pipeline:
 
-Video Input Processing: Users upload news broadcast videos in MP4 format
-Audio Intelligence: Advanced audio extraction with noise reduction and voice activity detection
-Transcription Pipeline: High-accuracy speech-to-text with word-level timestamps and punctuation restoration
-Semantic Clustering: Intelligent topic categorization using sliding-window zero-shot classification combined with density-based clustering
-Autonomous Optimization: AI agents continuously evaluate and improve clustering quality through iterative refinement
-Multi-Depth Summarization: Extractive and abstractive summarization with 5 depth levels from brief to comprehensive analysis
-Voice Synthesis: Natural text-to-speech generation for all summaries
-Visual Processing: Automatic keyframe extraction and topic-specific summary video compilation
+- **Video Input Processing**: Users upload news broadcast videos in MP4 format
+- **Audio Intelligence**: Advanced audio extraction with noise reduction and voice activity detection
+- **Transcription Pipeline**: High-accuracy speech-to-text with word-level timestamps and punctuation restoration
+- **Semantic Clustering**: Intelligent topic categorization using sliding-window zero-shot classification combined with density-based clustering
+- **Autonomous Optimization**: AI agents continuously evaluate and improve clustering quality through iterative refinement
+- **Multi-Depth Summarization**: Extractive and abstractive summarization with 5 depth levels from brief to comprehensive analysis
+- **Voice Synthesis**: Natural text-to-speech generation for all summaries
+- **Visual Processing**: Automatic keyframe extraction and topic-specific summary video compilation
 
-Technology Stack
+## Technology Stack
 
-Language: Python 3.10+
-Web Framework: Streamlit for interactive user interface
-AI Platform: Groq API with Llama-3.3-70b-versatile model for agent orchestration
-Audio Processing: FFmpeg, Silero VAD, noisereduce for audio extraction and preprocessing
-Speech Recognition: OpenAI Whisper medium model with Deep Multilingual Punctuation
-Natural Language Processing: Hugging Face Transformers ecosystem with specialized models
-Embeddings: Sentence-Transformers with all-MiniLM-L6-v2 for semantic understanding
-Clustering: HDBSCAN density-based clustering with scikit-learn metrics
-Text-to-Speech: Coqui TTS with Tacotron2-DDC model
-Video Processing: OpenCV and MoviePy for frame extraction and video compilation
+**Language**: Python 3.8+
+**Web Framework**: Streamlit for interactive user interface  
+**AI Platform**: Groq API with Llama-3.3-70b-versatile model for agent orchestration  
+**Audio Processing**: FFmpeg, Silero VAD, noisereduce for audio extraction and preprocessing  
+**Speech Recognition**: OpenAI Whisper medium model with Deep Multilingual Punctuation  
+**Natural Language Processing**: Hugging Face Transformers ecosystem with specialized models  
+**Embeddings**: Sentence-Transformers with all-MiniLM-L6-v2 for semantic understanding  
+**Clustering**: HDBSCAN density-based clustering with scikit-learn metrics  
+**Text-to-Speech**: Coqui TTS with Tacotron2-DDC model  
+**Video Processing**: OpenCV and MoviePy for frame extraction and video compilation
 
-Key Libraries:
-Whisper: OpenAI's robust speech recognition system with word-level timestamps
-Transformers: Hugging Face library for BART-large-mnli zero-shot classification and BART-large-cnn summarization
-Sentence-Transformers: State-of-the-art sentence embeddings for semantic similarity
-HDBSCAN: Hierarchical density-based clustering for topic discovery
-LangChain: Framework for LLM agent orchestration and prompt management
-Groq: High-performance inference platform for Llama model execution
-Coqui TTS: Open-source text-to-speech synthesis with natural voice generation
-MoviePy: Video editing and composition library for summary video creation
-Streamlit: Interactive web application framework for user interface
-ROUGE-score: Automatic evaluation of text summarization quality
-Gensim: Topic modeling and coherence metrics for cluster validation
+### Key Libraries:
+- **Whisper**: OpenAI's robust speech recognition system with word-level timestamps
+- **Transformers**: Hugging Face library for BART-large-mnli zero-shot classification and BART-large-cnn summarization
+- **Sentence-Transformers**: State-of-the-art sentence embeddings for semantic similarity
+- **HDBSCAN**: Hierarchical density-based clustering for topic discovery
+- **LangChain**: Framework for LLM agent orchestration and prompt management
+- **Groq**: High-performance inference platform for Llama model execution
+- **Coqui TTS**: Open-source text-to-speech synthesis with natural voice generation
+- **MoviePy**: Video editing and composition library for summary video creation
+- **Streamlit**: Interactive web application framework for user interface
+- **ROUGE-score**: Automatic evaluation of text summarization quality
+- **Gensim**: Topic modeling and coherence metrics for cluster validation
 
-External Services:
-Groq API: Large language model inference for Agent 1 and Agent 2 operations
-Hugging Face Hub: Pre-trained model downloads and inference
-Torch Hub: Silero VAD model loading for voice activity detection
+### External Services:
+- **Groq API**: Large language model inference for Agent 1 and Agent 2 operations
+- **Hugging Face Hub**: Pre-trained model downloads and inference
+- **Torch Hub**: Silero VAD model loading for voice activity detection
 
-System Architecture
+## System Architecture
 
 ┌─────────────────────────────────────────────────────────────┐
 │                    STREAMLIT FRONTEND                       │
@@ -122,14 +121,17 @@ System Architecture
 │  └──────────────┘  └──────────────┘  └──────────────┘       │
 └─────────────────────────────────────────────────────────────┘
 
-Project Structure
+## Project Structure
 
+```
 amcaci_capstone/
 ├── main.py                          # CLI application entry point and video processing orchestration
 ├── streamlit_page.py                # Streamlit web interface with progress tracking and results visualization
 ├── requirements.txt                 # Python dependencies with version specifications
 ├── .env.example                     # Environment variables template with required API keys
 ├── Dockerfile                       # Container configuration for deployment
+├── docker-compose.yml               # Docker Compose configuration for easy deployment
+├── docker-deploy.sh                 # Docker deployment script with multiple configurations
 ├── validate_integration.py          # System integration testing and validation
 ├── src/                             # Core application modules
 │   ├── config/
@@ -159,27 +161,30 @@ amcaci_capstone/
 │   └── logs/                        # Application logs with rotation
 └── test/
     └── test_connections.py          # Integration tests for external service connectivity
+```
 
-Prerequisites
+## Prerequisites
 
-Required Software
-Python 3.8 or higher - Core runtime environment with asyncio support
-FFmpeg - Audio/video processing toolkit (must be in system PATH)
-Git - Version control for repository management
-Modern web browser - For Streamlit interface (Chrome, Firefox, Safari, Edge recommended)
+### Required Software
+- **Python 3.8 or higher** - Core runtime environment with asyncio support
+- **FFmpeg** - Audio/video processing toolkit (must be in system PATH)
+- **Git** - Version control for repository management
+- **Modern web browser** - For Streamlit interface (Chrome, Firefox, Safari, Edge recommended)
 
-Required API Keys
-Groq API Key - Large language model access for Agent 1 and Agent 2 operations
+### Required API Keys
+- **Groq API Key** - Large language model access for Agent 1 and Agent 2 operations
 
-Optional Dependencies
-CUDA-compatible GPU - Significantly accelerates Whisper transcription and SBERT embedding generation
-Additional RAM - 8GB+ recommended for processing longer videos or multiple concurrent sessions
+### Optional Dependencies
+- **CUDA-compatible GPU** - Significantly accelerates Whisper transcription and SBERT embedding generation
+- **Additional RAM** - 8GB+ recommended for processing longer videos or multiple concurrent sessions
 
-Installation & Setup
+## Installation & Setup
 
-1. Clone Repository
-git clone https://github.com/your-org/amcaci-capstone.git
-cd amcaci-capstone
+### 1. Clone Repository
+```bash
+git clone https://github.com/avinashmanivannan03/AMCACI.git
+cd AMCACI
+```
 
 2. Create Python Virtual Environment
 # Create virtual environment
@@ -579,43 +584,44 @@ Cache model instances across multiple processing runs
 Batch Processing:
 Process multiple videos in sequence to amortize model loading costs
 Implement queue-based processing for high-throughput scenarios
-Use multiprocessing for CPU-intensive stages
+- Use multiprocessing for CPU-intensive stages
 
-Storage Optimization:
-Use SSD storage for temporary files and model cache
-Implement automatic cleanup of old processing runs
-Compress output videos for storage efficiency
+### Storage Optimization:
+- Use SSD storage for temporary files and model cache
+- Implement automatic cleanup of old processing runs
+- Compress output videos for storage efficiency
 
-Security Considerations
+## Security Considerations
 
-API Key Management
-Environment Variables: All API keys stored in .env file, never committed to version control
-Access Control: Groq API keys provide access to LLM inference capabilities
-Rotation: Regularly rotate API keys and update .env file
-Scope Limitation: Use API keys with minimal required permissions
+### API Key Management
+- **Environment Variables**: All API keys stored in .env file, never committed to version control
+- **Access Control**: Groq API keys provide access to LLM inference capabilities
+- **Rotation**: Regularly rotate API keys and update .env file
+- **Scope Limitation**: Use API keys with minimal required permissions
 
-Data Privacy and Security
-Local Processing: All video and audio processing occurs locally, no external data transmission except for LLM API calls
-Temporary Files: Automatically cleaned up after processing completion
-No PII Storage: System does not store personally identifiable information
-Logging Security: Logs contain no sensitive data, only operational metrics and error information
+### Data Privacy and Security
+- **Local Processing**: All video and audio processing occurs locally, no external data transmission except for LLM API calls
+- **Temporary Files**: Automatically cleaned up after processing completion
+- **No PII Storage**: System does not store personally identifiable information
+- **Logging Security**: Logs contain no sensitive data, only operational metrics and error information
 
-Network Security
-Local Development: Default configuration binds to localhost only for Streamlit interface
-Production Deployment: Use reverse proxy (nginx) with HTTPS termination for web access
-API Rate Limiting: Implement rate limiting to prevent abuse of Groq API quotas
-Input Validation: Comprehensive validation of uploaded video files and user inputs
+### Network Security
+- **Local Development**: Default configuration binds to localhost only for Streamlit interface
+- **Production Deployment**: Use reverse proxy (nginx) with HTTPS termination for web access
+- **API Rate Limiting**: Implement rate limiting to prevent abuse of Groq API quotas
+- **Input Validation**: Comprehensive validation of uploaded video files and user inputs
 
-Generated Content Security
-Content Filtering: Summaries generated from source content only, no external information injection
-Factual Consistency: Extractive summarization foundation ensures factual accuracy
-Bias Mitigation: Multiple model ensemble approach reduces individual model biases
-Output Validation: ROUGE metrics and coherence scores validate summary quality
+### Generated Content Security
+- **Content Filtering**: Summaries generated from source content only, no external information injection
+- **Factual Consistency**: Extractive summarization foundation ensures factual accuracy
+- **Bias Mitigation**: Multiple model ensemble approach reduces individual model biases
+- **Output Validation**: ROUGE metrics and coherence scores validate summary quality
 
-Development Setup
+## Development Setup
 
 For developers wanting to extend or modify the system:
 
+```bash
 # Install development dependencies
 pip install -r requirements.txt
 pip install pytest black mypy flake8
@@ -634,23 +640,21 @@ flake8 src/ test/ *.py
 
 # Run integration tests
 python test/test_connections.py
+```
 
-Development Guidelines:
-Follow PEP 8 style guidelines with Black formatting
-Use type hints for all function signatures
-Write comprehensive docstrings for public APIs
-Include unit tests for new functionality
-Update configuration documentation for new settings
-Maintain backward compatibility for data schemas
+### Development Guidelines:
+- Follow PEP 8 style guidelines with Black formatting
+- Use type hints for all function signatures
+- Write comprehensive docstrings for public APIs
+- Include unit tests for new functionality
+- Update configuration documentation for new settings
+- Maintain backward compatibility for data schemas
 
-Contributing:
-Fork the repository and create feature branches
-Write tests for new functionality
-Update documentation for API changes
-Submit pull requests with clear descriptions
-Follow semantic versioning for releases
+### Contributing:
+- Fork the repository and create feature branches
+- Write tests for new functionality
+- Update documentation for API changes
+- Submit pull requests with clear descriptions
+- Follow semantic versioning for releases
 
 This comprehensive system represents a sophisticated approach to autonomous content analysis, combining multiple AI technologies in a cohesive pipeline that delivers professional-quality results with minimal human intervention.
-=======
-# AMCACI
->>>>>>> a57e2df54ced955a719ea5cdeadd9e795b9e5cea
