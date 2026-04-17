@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 AMCACI - Autonomous Multi-modal Content Analysis and Clustering Intelligence
 
 Overview
@@ -650,3 +651,6 @@ Submit pull requests with clear descriptions
 Follow semantic versioning for releases
 
 This comprehensive system represents a sophisticated approach to autonomous content analysis, combining multiple AI technologies in a cohesive pipeline that delivers professional-quality results with minimal human intervention.
+=======
+# AMCACI
+>>>>>>> a57e2df54ced955a719ea5cdeadd9e795b9e5cea
