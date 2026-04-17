@@ -1,1 +1,1 @@
-# AMCACI Capstone Project
+# AMCACI
