@@ -197,15 +197,18 @@ venv\Scripts\activate
 source venv/bin/activate
 
 3. Install Dependencies
+```bash
 # Upgrade pip to latest version
 pip install --upgrade pip
 
 # Install all required packages
 pip install -r requirements.txt
+```
 
-Note: First-time installation will download several GB of pre-trained models including Whisper medium, BART models, and Sentence-BERT embeddings. Ensure stable internet connection and sufficient disk space.
+**Note**: First-time installation will download several GB of pre-trained models including Whisper medium, BART models, and Sentence-BERT embeddings. Ensure stable internet connection and sufficient disk space.
 
-4. Install FFmpeg
+### 4. Install FFmpeg
+```bash
 # Windows (using chocolatey):
 choco install ffmpeg
 
@@ -217,14 +220,18 @@ sudo apt update && sudo apt install ffmpeg
 
 # Verify installation:
 ffmpeg -version
+```
 
-5. Configure Environment Variables
+### 5. Configure Environment Variables
+```bash
 # Copy example environment file
 cp .env.example .env
 
 # Edit .env with your API keys
-Required environment variables:
+```
 
+Required environment variables:
+```bash
 # Groq API Configuration (REQUIRED)
 GROQ_API_KEY=your_groq_api_key_here
 
@@ -232,118 +239,135 @@ GROQ_API_KEY=your_groq_api_key_here
 LOG_LEVEL=INFO                       # DEBUG, INFO, WARNING, ERROR
 BASE_OUTPUT_DIR=data/outputs         # Output directory path
 TEMP_DIR=data/temp                   # Temporary files directory
+```
 
-6. Validate Installation
+### 6. Validate Installation
+```bash
 # Run integration tests to verify all components
 python test/test_connections.py
 
 # Test basic pipeline functionality
 python validate_integration.py
+```
 
 This validation will:
-Test Groq API connectivity and model access
-Verify FFmpeg installation and audio processing capabilities
-Check Hugging Face model downloads and inference
-Validate Whisper transcription functionality
-Test TTS synthesis and audio generation
-Confirm video processing and keyframe extraction
+- Test Groq API connectivity and model access
+- Verify FFmpeg installation and audio processing capabilities
+- Check Hugging Face model downloads and inference
+- Validate Whisper transcription functionality
+- Test TTS synthesis and audio generation
+- Confirm video processing and keyframe extraction
 
-7. Launch Application
+### 7. Launch Application
 
-Command Line Interface:
+**Command Line Interface:**
+```bash
 python main.py path/to/your/video.mp4
+```
 
-Web Interface:
+**Web Interface:**
+```bash
 streamlit run streamlit_page.py
+```
 
 The Streamlit interface will open automatically in your browser at http://localhost:8501.
 
-8. Verify Installation
+**Docker Deployment:**
+```bash
+# Build and run with Docker
+./docker-deploy.sh build production
+./docker-deploy.sh run prod
+
+# Or use Docker Compose directly
+docker-compose up -d amcaci-prod
+```
+
+### 8. Verify Installation
 Test the system with a sample news video:
-Upload a short news video (30 seconds recommended for first test)
-Monitor the 8-stage pipeline progress in real-time
-Verify outputs: transcript, clusters, summaries, TTS audio, and summary videos
-Check the data/outputs/[run_id]/ directory for all generated artifacts
+- Upload a short news video (30 seconds recommended for first test)
+- Monitor the 8-stage pipeline progress in real-time
+- Verify outputs: transcript, clusters, summaries, TTS audio, and summary videos
+- Check the `data/outputs/[run_id]/` directory for all generated artifacts
 
-How It Works
+## How It Works
 
-Complete Pipeline Flow
+### Complete Pipeline Flow
 
-1. Video Input and Audio Extraction
+#### 1. Video Input and Audio Extraction
 When a user uploads a news video, the system begins with audio extraction using FFmpeg. The video is processed to extract a mono 16kHz WAV file optimized for speech recognition. This standardization ensures consistent quality across different input video formats and codecs.
 
 The extraction process handles various video containers (MP4, AVI, MOV) and automatically converts audio streams to the optimal format for downstream processing. Error handling ensures graceful degradation if video corruption or unsupported formats are encountered.
 
-2. Intelligent Audio Preprocessing
+#### 2. Intelligent Audio Preprocessing
 The extracted audio undergoes sophisticated preprocessing to optimize transcription accuracy. The system applies spectral noise reduction using the noisereduce library, which analyzes the audio spectrum to identify and suppress background noise while preserving speech clarity.
 
 Voice Activity Detection (VAD) using the Silero model identifies and retains only segments containing human speech, removing silence, music, and non-speech audio. This preprocessing step typically reduces audio length by 40-60% while maintaining all relevant content, significantly improving transcription speed and accuracy.
 
-3. High-Accuracy Transcription Pipeline
+#### 3. High-Accuracy Transcription Pipeline
 Transcription utilizes OpenAI's Whisper medium model, providing state-of-the-art accuracy for English news content. The system generates word-level timestamps, enabling precise alignment between text and video segments for later processing stages.
 
 Post-transcription processing includes punctuation restoration using the Deep Multilingual Punctuation model, which adds appropriate punctuation marks, capitalization, and sentence boundaries. This step transforms raw speech recognition output into properly formatted text suitable for semantic analysis.
 
 The output consists of TranscriptSegment objects containing the sentence text, precise start and end timestamps, and unique segment identifiers for downstream processing.
 
-4. Advanced Semantic Clustering and Categorization
+#### 4. Advanced Semantic Clustering and Categorization
 The clustering stage represents the system's most sophisticated component, combining multiple AI techniques for intelligent topic discovery:
 
-Sliding-Window Zero-Shot Classification:
-Groups consecutive sentences into overlapping windows (default: 3 sentences with 1 sentence overlap)
-Each window is classified as a unit using BART-large-mnli against predefined news categories
-Assigns provisional category labels to all sentences within each window
-Handles topic transitions more effectively than sentence-by-sentence classification
+**Sliding-Window Zero-Shot Classification:**
+- Groups consecutive sentences into overlapping windows (default: 3 sentences with 1 sentence overlap)
+- Each window is classified as a unit using BART-large-mnli against predefined news categories
+- Assigns provisional category labels to all sentences within each window
+- Handles topic transitions more effectively than sentence-by-sentence classification
 
-Boundary Misfit Detection:
-Computes SBERT embeddings for all sentences to capture semantic similarity
-Identifies sentences at category boundaries that may be misclassified
-Uses cosine similarity thresholds to detect sentences that don't semantically fit their assigned category
-Reassigns misfits to neighboring categories based on embedding proximity
+**Boundary Misfit Detection:**
+- Computes SBERT embeddings for all sentences to capture semantic similarity
+- Identifies sentences at category boundaries that may be misclassified
+- Uses cosine similarity thresholds to detect sentences that don't semantically fit their assigned category
+- Reassigns misfits to neighboring categories based on embedding proximity
 
-Intra-Category HDBSCAN Clustering:
-Groups sentences of the same category using density-based clustering
-Discovers sub-topics within broader categories (e.g., multiple sports stories within Sports category)
-Handles noise and outliers gracefully without forcing every sentence into a cluster
-Produces final ClusterResult objects with category labels, sentence groups, and confidence scores
+**Intra-Category HDBSCAN Clustering:**
+- Groups sentences of the same category using density-based clustering
+- Discovers sub-topics within broader categories (e.g., multiple sports stories within Sports category)
+- Handles noise and outliers gracefully without forcing every sentence into a cluster
+- Produces final ClusterResult objects with category labels, sentence groups, and confidence scores
 
-5. Autonomous Quality Optimization with Agent 1
+#### 5. Autonomous Quality Optimization with Agent 1
 The system includes an intelligent evaluation loop that automatically assesses and improves clustering quality:
 
-Metric Computation:
-Silhouette Score: Measures how well-separated clusters are (higher is better)
-Davies-Bouldin Index: Evaluates cluster compactness and separation (lower is better)
-Calinski-Harabasz Index: Assesses cluster density and separation (higher is better)
-Noise Percentage: Proportion of sentences not assigned to any cluster
-Topic Coherence: Gensim-based coherence scores for each cluster using LDA topic modeling
+**Metric Computation:**
+- **Silhouette Score**: Measures how well-separated clusters are (higher is better)
+- **Davies-Bouldin Index**: Evaluates cluster compactness and separation (lower is better)
+- **Calinski-Harabasz Index**: Assesses cluster density and separation (higher is better)
+- **Noise Percentage**: Proportion of sentences not assigned to any cluster
+- **Topic Coherence**: Gensim-based coherence scores for each cluster using LDA topic modeling
 
-Agent 1 Diagnosis and Optimization:
-If metrics fail to meet quality thresholds, Agent 1 (Llama-3.3-70b) analyzes the clustering results
-The agent receives cluster contents, metric scores, and failure reasons as input
-Generates actionable recommendations including:
-Parameter adjustments (min_cluster_size, min_samples for HDBSCAN)
-Cluster merge suggestions for overly fragmented topics
-Label reassignment recommendations for misclassified content
-Rationale explanations for each suggested change
+**Agent 1 Diagnosis and Optimization:**
+- If metrics fail to meet quality thresholds, Agent 1 (Llama-3.3-70b) analyzes the clustering results
+- The agent receives cluster contents, metric scores, and failure reasons as input
+- Generates actionable recommendations including:
+  - Parameter adjustments (min_cluster_size, min_samples for HDBSCAN)
+  - Cluster merge suggestions for overly fragmented topics
+  - Label reassignment recommendations for misclassified content
+  - Rationale explanations for each suggested change
 
-Iterative Refinement:
-Applies agent suggestions and re-runs clustering using a fast path that skips expensive zero-shot classification
-Supports up to 3 optimization attempts with early exit if scores become frozen (indicating geometric convergence)
-Accumulates relabeling suggestions across attempts to preserve previous improvements
-Tracks clustering evolution and prevents infinite loops
+**Iterative Refinement:**
+- Applies agent suggestions and re-runs clustering using a fast path that skips expensive zero-shot classification
+- Supports up to 3 optimization attempts with early exit if scores become frozen (indicating geometric convergence)
+- Accumulates relabeling suggestions across attempts to preserve previous improvements
+- Tracks clustering evolution and prevents infinite loops
 
-6. Multi-Depth Summarization System
+#### 6. Multi-Depth Summarization System
 The summarization stage operates in two phases with optional AI agent refinement:
 
-Extractive Summarization:
-Selects the top 3 most representative sentences from each cluster
-Uses SBERT embeddings to compute cosine similarity between each sentence and the cluster centroid
-Preserves original sentence order and maintains factual accuracy
-Provides a foundation for abstractive summarization
+**Extractive Summarization:**
+- Selects the top 3 most representative sentences from each cluster
+- Uses SBERT embeddings to compute cosine similarity between each sentence and the cluster centroid
+- Preserves original sentence order and maintains factual accuracy
+- Provides a foundation for abstractive summarization
 
-Abstractive Summarization:
-Employs BART-large-cnn to generate fluent, concise summaries from extractive content
-Produces summaries with configurable length constraints (40-180 tokens)
+**Abstractive Summarization:**
+- Employs BART-large-cnn to generate fluent, concise summaries from extractive content
+- Produces summaries with configurable length constraints (40-180 tokens)
 Computes ROUGE-L scores to assess summary quality against source content
 Maintains factual consistency while improving readability and coherence
 
