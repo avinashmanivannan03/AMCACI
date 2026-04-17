@@ -1,4 +1,4 @@
-# AMCACI - Autonomous Multi-modal Content Analysis and Clustering Intelligence
+# AMCACI - Autonomous Multi-modal Content Analysis and Collaborative Intelligence
 
 ## Overview
 
