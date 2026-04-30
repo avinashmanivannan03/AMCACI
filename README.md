@@ -456,7 +456,7 @@ Audio Outputs: Professional-quality TTS for accessibility and multimedia applica
 Video Outputs: Topic-specific summary videos for visual learners and presentation use
 Visual Outputs: Keyframe galleries for quick visual scanning and thumbnail generation
 
-Performance Characteristics
+Performance Characteristics:
 
 Processing Speed and Scalability
 Typical Processing Times (30-second news video):
